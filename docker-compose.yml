@@ -1,0 +1,47 @@
+version: '3.3'
+
+#networks:
+#    teste-grpc:
+#      driver: bridge
+
+services:
+    servico-misto: 
+        image: servico-misto:latest       
+        build:
+            context: .
+            dockerfile: ./ServicoMisto/Dockerfile
+        container_name: servico-misto
+        expose:
+        #    - "80"
+        #    - "443"
+            - "5000"
+            - "5010"
+        ports:
+        #    - 80:80
+        #    - 443:443          
+            - 5000:5000
+            - 5010:5010
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+          #  - ASPNETCORE_URLS=https://+:443;http://+:80
+          #  - ASPNETCORE_Kestrel__Certificates__Default__Password=testE@123
+          #  - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/certificado.pfx
+      #  volumes:
+      #      - /c/docker/https:/https:ro            
+        restart: always
+     #   networks:
+     #       - teste-grpc      
+
+    cliente-grpc: 
+        image: cliente-grpc:latest       
+        build:
+            context: .
+            dockerfile: ./ClienteGRPC/Dockerfile
+        container_name: cliente-grpc        
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+     #   volumes:
+     #       - /c/docker/https:/https:ro            
+
+     #   networks:
+     #       - teste-grpc                  

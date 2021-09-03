@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "ServicoGRPC";
+
+message EmpresaIdRequest {
+	string id = 1;
+}
+
+message ProdutoResponse {
+	string Id = 1;
+	string Descricao = 2;
+	string CodigoProtheus = 3;
+}
+
+message ProdutosResponse {
+	repeated ProdutoResponse data = 1;
+}
+
+service Catalogo {
+	rpc ProdutosListar (EmpresaIdRequest) returns (ProdutosResponse){};
+}
